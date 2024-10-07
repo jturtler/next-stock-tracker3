@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "../common/Button";
 import SpinningIcon from "../common/SpinningIcon";
 
@@ -27,7 +27,13 @@ export default function SearchStock({ handleOnItemSelect }: { handleOnItemSelect
 
 	const onItemSelect = (item: any) => {
 		setTickerData([]); // Reset 
-		handleOnItemSelect( item );
+		const retrieveTime = new Date().getTime();
+
+		console.log( 'SearchStock, onItemSelect: ' );
+		console.log( retrieveTime );
+	
+	
+		handleOnItemSelect( { ...item, retrieveTime } );
 	};
 
 	return (

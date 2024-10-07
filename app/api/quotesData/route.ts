@@ -1,4 +1,4 @@
-import { ChartOptionsWithReturnArray, ChartOptionsWithReturnObject } from './../../../node_modules/yahoo-finance2/dist/cjs/src/modules/chart.d';
+import { ChartOptionsWithReturnArray, ChartOptionsWithReturnObject } from '../../../node_modules/yahoo-finance2/dist/cjs/src/modules/chart';
 
 import { NextRequest, NextResponse } from 'next/server';
 import yahooFinance from 'yahoo-finance2';
