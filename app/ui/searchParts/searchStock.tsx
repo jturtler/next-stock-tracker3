@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../common/Button";
-import { FaSpinner } from "react-icons/fa";
 import SpinningIcon from "../common/SpinningIcon";
 
 export default function SearchStock({ handleOnItemSelect }: { handleOnItemSelect: (stockData: any) => void }) {
