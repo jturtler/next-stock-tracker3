@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import SpinningIcon from "../common/SpinningIcon";
+import * as Utils from "@/app/util/utils";
 
-export default function StockQuotes({ stockItem }: { stockItem: any }) {
+export default function StockQuotes({ stockItem, quoteDays }: { stockItem: any, quoteDays: number }) {
 
 	const [loading, setLoading] = useState<boolean>(true); // Loading state
 	const [quotesData, setQuotesData] = useState<any>({}); // Loading state
-
-	console.log( 'StockQuotes: ' );
-	console.log( stockItem );
 
 	useEffect( () => {
 
@@ -15,7 +13,12 @@ export default function StockQuotes({ stockItem }: { stockItem: any }) {
 
 		if ( stockItem.symbol )
 		{
-			fetch('/api/quotesData?symbol=' + stockItem.symbol + '&startDate=2024-10-01&endDate=2024-10-05&interval=1m' )
+			const dateStr = Utils.getDatesRangeStr(quoteDays);
+			const paramDateRangeStr = '&startDate=' + dateStr.replace( ' - ', '&endDate=' );
+
+			console.log( paramDateRangeStr );
+
+			fetch('/api/quotesData?symbol=' + stockItem.symbol + paramDateRangeStr + '&interval=1m' )
 			.then( (response) => 
 			{
 				if (!response.ok) throw new Error('Network response was not ok');
@@ -32,10 +35,11 @@ export default function StockQuotes({ stockItem }: { stockItem: any }) {
 			});
 		}
 		else { console.log( 'no symbol' ); }
-	}, [stockItem]); // Only if 'symbol' is not same as previous one, run 'useEffect'
+	}, [stockItem, quoteDays]); // Only if 'symbol' is not same as previous one, run 'useEffect'
 
 	return (
 		<div className=" text-black p-2 border-0 border-gray-800 shadow-md bg-orange-100 rounded-lg">
+			<div className="text-sm font-semibold text-gray-800">{ stockItem.symbol + ', ' + stockItem.longname }</div>
 			{ ( loading ) ?
 				<div className="ml-2 mt-1 w-[30px]">
 					<SpinningIcon className="text-blue-400" />
@@ -44,7 +48,6 @@ export default function StockQuotes({ stockItem }: { stockItem: any }) {
 				<div>
 					{ quotesData?.quotes && 
 						<div>
-							{ <div className="text-sm font-semibold text-gray-800">Prices:</div> } 
 							{ quotesData.quotes.map( ( item: any, i: number ) => i <= 10 && <div key={i} className="text-xs">{ JSON.stringify(item) }</div> ) } 
 							{ quotesData.quotes.length > 10 && <div className="text-sm italic text-gray-400">{ '...more prices, total: ' + quotesData.quotes.length }</div> }
 						</div>

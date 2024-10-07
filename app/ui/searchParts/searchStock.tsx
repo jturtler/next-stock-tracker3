@@ -38,9 +38,9 @@ export default function SearchStock({ handleOnItemSelect }: { handleOnItemSelect
 
 	return (
 		<div className="relative text-black">
-			<div className="w-full flex">
+			<div className="w-full flex h-7">
 				<input
-					className="p-2 max-w-[300px] rounded-md border border-gray-300 text-sm placeholder:text-gray-500 "
+					className="p-2 max-w-[300px] rounded-md border border-gray-300 text-xs placeholder:text-gray-500 "
 					id="search"
 					ref={inputRef}
 					placeholder="Search for stock"
