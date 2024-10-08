@@ -3,7 +3,7 @@ import SpinningIcon from "../common/SpinningIcon";
 import * as Utils from "@/app/util/utils";
 
 const shortListCount: number = 4;
-const longListCount: number = 20;
+const longListCount: number = 13;
 
 export default function StockQuotes({ stockItem, quoteDays, onRemoveClick }: { stockItem: any, quoteDays: number, onRemoveClick: (stockItem: any) => void }) {
 
