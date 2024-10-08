@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SearchStock from "./searchParts/searchStock";
-import StockQuotes from "./searchParts/stockQuotes";
+import StockQuotesCard from "./searchParts/stockQuotesCard";
 import { useContextQuoteDays } from "../context/ContextQuoteDays";
 import { Button } from "./common/Button";
 
@@ -15,8 +15,15 @@ export default function Main () {
 		setStockList( [ ...stockList, item ] );
 	};
 
-
+	const stockBtnClick = ( stockItem: any ) => {
+		console.log( stockItem ); // How to flash & scroll the bottom one?
+	};
 	// Only display last 3 days worth of quotes
+
+	const onRemoveClicked = ( stockItem: any ) => {
+		console.log( stockItem.symbol + ' Removal Trying' );
+		setStockList( [ ...stockList.filter(item => item !== stockItem) ] );
+	};
 
 	return (
 		<div className="text-black p-2">
@@ -26,14 +33,14 @@ export default function Main () {
 
 				<div className="mt-2 flex gap-1">
 						{ stockList.map( (stockItem, i ) => 
-							<Button key={i} className="bg-blue-900">{stockItem.symbol}</Button>
+							<Button key={i} className="bg-blue-900" onClick={() => stockBtnClick(stockItem)}>{stockItem.symbol}</Button>
 							)
 						}
 					</div>
 
 					<div className="mt-2 flex flex-col gap-2">
 						{ stockList.map( (stockItem, i ) => 
-							<StockQuotes key={i} stockItem={stockItem} quoteDays={quoteDays} ></StockQuotes>
+							<StockQuotesCard key={i} stockItem={stockItem} quoteDays={quoteDays} onRemoveClick={onRemoveClicked} ></StockQuotesCard>
 							)
 						}
 					</div>
