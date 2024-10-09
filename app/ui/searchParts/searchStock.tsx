@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../common/Button";
 import SpinningIcon from "../common/SpinningIcon";
 
@@ -7,11 +7,11 @@ export default function SearchStock({ handleOnItemSelect }: { handleOnItemSelect
 	const [searchKey, setSearchcKey] = useState('');
 	const [searchRequesting, onSearchRequesting] = useState(false);
 	const [tickerData, setTickerData] = useState([]);
-	const inputRef = useRef<HTMLInputElement>(null);
+	const [showSearchResultList, setShowSearchResultList] = useState(false);
+	const divInputRef = useRef<HTMLDivElement>(null);
+	const divListRef = useRef<HTMLDivElement>(null);
 
 	const onRequestClick = async () => {
-
-		let searchVal = '';
 		let resultList = [];
 
 		onSearchRequesting(true);
@@ -20,28 +20,44 @@ export default function SearchStock({ handleOnItemSelect }: { handleOnItemSelect
 
 		onSearchRequesting(false);
 
-		// <div>{item.symbol} - {item.shortname}</div>
 		if (responseJson?.quotes) resultList = responseJson.quotes;
 		setTickerData(resultList);
 	};
 
 	const onItemSelect = (item: any) => {
-		setTickerData([]); // Reset 
-		const retrieveTime = new Date().getTime();
-	
-		setSearchcKey('');
-	
-		handleOnItemSelect( { ...item, retrieveTime } );
+
+		setTickerData([]); // Reset 	
+		setSearchcKey('');		
+		setShowSearchResultList(false);	
+
+		handleOnItemSelect( item );
 	};
+
+	const handleClickOutside = (event: MouseEvent) => {
+		if ( !divInputRef.current?.contains(event.target as Node)
+			&& !divListRef.current?.contains(event.target as Node) ) {
+			setShowSearchResultList(false);
+		}
+	};
+
+
+	useEffect(() => {
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
+
 
 	return (
 		<div className="relative text-black">
-			<div className="w-full flex h-9 bg-slate-100 border-1 border-blue-950 p-1 rounded-md">
+			<div className="w-full flex h-9 bg-slate-100 border-1 border-blue-950 p-1 rounded-md" ref={divInputRef} onClick={() => setShowSearchResultList(true)}>
 				<input
 					className="p-2 max-w-[300px] rounded-md border border-gray-300 text-xs placeholder:text-gray-500 "
 					id="search"
 					value={searchKey}
-					onChange={ (e) => setSearchcKey(e.currentTarget.value) }
+					onChange={ (e) => setSearchcKey(e.target.value) }
+					onKeyUp={ (e) => { if ( e.key === 'Enter') { e.preventDefault(); onRequestClick(); } } }
 					placeholder="Search for stock"
 					required
 				/>
@@ -53,8 +69,8 @@ export default function SearchStock({ handleOnItemSelect }: { handleOnItemSelect
 				}
 			</div>
 
-			{ ( tickerData.length > 0 ) && 
-				<div className="absolute z-10 top-full max-h-[200px] max-w-[300px] overflow-y-auto p-1 border border-gray-300 bg-gray-100 rounded shadow-lg text-gray-700 cursor-pointer">
+			{ showSearchResultList && 
+				<div className="absolute z-10 top-full max-h-[200px] max-w-[300px] overflow-y-auto p-1 border border-gray-300 bg-gray-100 rounded shadow-lg text-gray-700 cursor-pointer" ref={divListRef}>
 					{tickerData.map((item: any, i) => (
 						<div key={'ssr_' + i} onClick={() => onItemSelect(item) } className="hover:bg-gray-300 text-sm p-1">{item.symbol} - {item.shortname}</div>
 					))}

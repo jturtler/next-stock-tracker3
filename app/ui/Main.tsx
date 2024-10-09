@@ -11,7 +11,11 @@ export default function Main () {
 	const [ flashId, setFlashId ] = useState< number >(-1);
 	const { quoteDays } = useContextQuoteDays();
 
-	const onStockItemSelect = ( item: any ) => {  setStockItem( item );  setStockList( [ ...stockList, item ] );  };
+	const onStockItemSelect = ( item: any ) => {  
+		console.log( 'stock item selected in Main ');
+		console.log( item );
+		setStockItem( item );  setStockList( [ ...stockList, item ] );  
+	};
 	
 	const stockBtnClick = ( stockItem: any, i: number ) => {
 		document.getElementById('stockCard_' + i)?.scrollIntoView({ behavior: 'instant' }); // vs 'smooth'
@@ -38,7 +42,7 @@ export default function Main () {
 
 					<div className="mt-2 flex flex-col gap-2">
 						{ stockList.map( (stockItem, i ) => 
-							<div id={'stockCard_' + i }>
+							<div id={'stockCard_' + i } key={i}>
 								<StockQuotesCard className={"" + getCssFlash(i)} key={i} stockItem={stockItem} quoteDays={quoteDays} onRemoveClick={onRemoveClicked} ></StockQuotesCard>
 							</div>
 							)
