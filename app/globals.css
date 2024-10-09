@@ -25,3 +25,22 @@ body {
     text-wrap: balance;
   }
 }
+
+
+/* Define the flash animation */
+@keyframes flash {
+  0% {
+    background-color: initial;
+  }
+  50% {
+    background-color: greenyellow; /* The color of the flash */
+  }
+  100% {
+    background-color: initial;
+  }
+}
+
+/* Add a class to apply the animation */
+.flash {
+  animation: flash 0.5s ease-in-out; /* Change the duration as needed */
+}

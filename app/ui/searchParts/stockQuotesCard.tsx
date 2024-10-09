@@ -5,12 +5,14 @@ import * as Utils from "@/app/util/utils";
 const shortListCount: number = 4;
 const longListCount: number = 13;
 
-export default function StockQuotes({ stockItem, quoteDays, onRemoveClick }: { stockItem: any, quoteDays: number, onRemoveClick: (stockItem: any) => void }) {
+export default function StockQuotes({ stockItem, quoteDays, className, onRemoveClick }: { stockItem: any, quoteDays: number, className?:string , onRemoveClick: (stockItem: any) => void }) {
 
 	const [loading, setLoading] = useState<boolean>(true); // Loading state
 	const [quotesData, setQuotesData] = useState<any>({}); // Loading state
 	const [quotesShowNum, setQuotesShowNum] = useState<number>(shortListCount); // Loading state
 	const [quotesExpend, setQuotesExpend] = useState<boolean>(false); // Loading state
+
+	if ( !className ) className = '';
 
 	useEffect( () => {
 
@@ -56,7 +58,7 @@ export default function StockQuotes({ stockItem, quoteDays, onRemoveClick }: { s
 	}
 
 	return (
-		<div className=" text-black p-2 border-0 border-gray-800 shadow-md bg-orange-100 rounded-lg">
+		<div className={"text-black p-2 border-0 border-gray-800 shadow-md bg-orange-100 rounded-lg " + className }>
 			<div className="flex w-full">
 				<div className="text-sm font-semibold text-gray-800">{ stockItem.symbol + ', ' + stockItem.longname }</div>
 				<div className="ml-2 text-xs font-semibold text-gray-800 bg-red-400 px-1 rounded-sm cursor-pointer" title="Remove" onClick={()=>onRemoveClick(stockItem)}>x</div>
