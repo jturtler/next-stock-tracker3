@@ -20,10 +20,7 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 
 		if ( stockItem.symbol )
 		{
-			const dateStr = Utils.getDatesRangeStr(quoteDays);
-			const paramDateRangeStr = '&startDate=' + dateStr.replace( ' - ', '&endDate=' );
-
-			console.log( paramDateRangeStr );
+			const paramDateRangeStr = '&startDate=' + Utils.getDatesRangeStr(quoteDays).replace( ' - ', '&endDate=' );
 
 			fetch('/api/quotesData?symbol=' + stockItem.symbol + paramDateRangeStr + '&interval=1m' )
 			.then( (response) => 

@@ -11,30 +11,17 @@ export default function Main () {
 	const [ flashId, setFlashId ] = useState< number >(-1);
 	const { quoteDays } = useContextQuoteDays();
 
-	const onStockItemSelect = ( item: any ) => {
-		setStockItem( item );
-		setStockList( [ ...stockList, item ] );
-	};
-
+	const onStockItemSelect = ( item: any ) => {  setStockItem( item );  setStockList( [ ...stockList, item ] );  };
+	
 	const stockBtnClick = ( stockItem: any, i: number ) => {
-		console.log( stockItem ); // How to flash & scroll the bottom one?
-
-		const myDiv = document.getElementById('stockCard_' + i);
-		if ( myDiv ) myDiv.scrollIntoView({ behavior: 'instant' }); // vs 'smooth'
+		document.getElementById('stockCard_' + i)?.scrollIntoView({ behavior: 'instant' }); // vs 'smooth'
 
 		setFlashId(i);			
 		setTimeout(() => { setFlashId(-1); }, 500);
 	};
 
-	const onRemoveClicked = ( stockItem: any ) => {
-		console.log( stockItem.symbol + ' Removal Trying' );
-		setStockList( [ ...stockList.filter(item => item !== stockItem) ] );
-	};
-
-	const getCssFlash = ( i: number ): string => {
-		return ( i === flashId ) ? 'flash': '';
-	};
-
+	const onRemoveClicked = ( stockItem: any ) => setStockList( [ ...stockList.filter(item => item !== stockItem) ] );
+	const getCssFlash = ( i: number ): string => ( i === flashId ) ? 'flash': '';
 
 	return (
 		<div className="text-black p-2">
