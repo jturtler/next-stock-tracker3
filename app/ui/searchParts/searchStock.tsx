@@ -48,9 +48,20 @@ export default function SearchStock({ handleOnItemSelect }: { handleOnItemSelect
 		};
 	}, []);
 
+	const onSamplesClick = ( sampleStr: string ) => {
+		setSearchcKey( sampleStr );
+	};
 
 	return (
 		<div className="relative text-black">
+
+			<div className="w-full flex h-6 bg-slate-100 border-1 border-blue-950 p-1 rounded-md gap-1 pl-2">
+				<div className="text-gray-400 text-[10px] mx-1 italic">Samples:</div>
+				<Button onClick={() => onSamplesClick('google')} className="bg-gray-300 text-white text-[10px]">google</Button>
+				<Button onClick={() => onSamplesClick('amazon')} className="bg-gray-300 text-white text-[10px]">amazon</Button>
+				<Button onClick={() => onSamplesClick('tesla')} className="bg-gray-300 text-white text-[10px]">tesla</Button>
+			</div>
+
 			<div className="w-full flex h-9 bg-slate-100 border-1 border-blue-950 p-1 rounded-md" ref={divInputRef} onClick={() => setShowSearchResultList(true)}>
 				<input
 					className="p-2 max-w-[300px] rounded-md border border-gray-300 text-xs placeholder:text-gray-500 "

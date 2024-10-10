@@ -31,6 +31,7 @@ export default function Header() {
 				value={ quoteDays } 
 				onChange={ (e) => { setQuoteDays( parseInt(e.target.value ) ); } }></input> days</div> 
 			<div className="ml-2 text-xs text-gray-500">{Utils.getDatesRangeStr(quoteDays)}</div>
+			<div className="hover:text-orange-400 cursor-pointer ml-2" onClick={() => { alert( 'eval expression Modal Window HERE!!' ); }}>EVALS</div>
 			</div> 
 		}
 	 </header>
