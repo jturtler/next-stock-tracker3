@@ -30,8 +30,25 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 			}).then( (responseJson: any) => 
 			{
 				setLoading(false);
-				// console.log( responseJson );
-				if (responseJson) setQuotesData( responseJson );
+
+				if (responseJson) 
+				{
+					setQuotesData( responseJson );
+					const value = eval( 'responseJson?.quotes?.length' ); // Now that this works
+					// We can use the expression..  
+					// Is there any way to declare a global variable?  'INFO'?  'GLOBAL'?
+					console.log( 'eval value: ' + value );
+					//if ( !window.GLOBAL_OBJ ) window.GLOBAL_OBJ = {};
+
+					if ( !window.GLOBAL_OBJ.count ) {
+						window.GLOBAL_OBJ.count = 0;
+						window.GLOBAL_OBJ.items = [];
+					}
+
+					window.GLOBAL_OBJ.count++;
+					window.GLOBAL_OBJ.items.push( responseJson );
+				
+				}
 			})
 			.catch((error) => {
 				setLoading(false);
@@ -41,9 +58,11 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 		else { console.log( 'no symbol' ); }
 	}, [stockItem, quoteDays]); // Only if 'symbol' is not same as previous one, run 'useEffect'
 
+
 	const onExpendClick = () => {
 		if ( quotesExpend )
 		{
+			// Make this a single object state?
 			setQuotesShowNum( shortListCount );
 			setQuotesExpend( false );
 		}

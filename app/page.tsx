@@ -6,6 +6,9 @@ import Footer from "./ui/Footer";
 import { ContextWrapperQuoteDays } from "./context/ContextQuoteDays";
 
 export default function Home() {
+
+  if ( !window.GLOBAL_OBJ ) window.GLOBAL_OBJ = {};
+
   return (
     <div className="flex h-screen flex-col">
       <ContextWrapperQuoteDays>
