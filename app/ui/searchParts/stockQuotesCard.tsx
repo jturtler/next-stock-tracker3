@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SpinningIcon from "../common/SpinningIcon";
 import * as Utils from "@/app/util/utils";
+import StockChart from "./stockChart";
 
 const shortListCount: number = 4;
 const longListCount: number = 13;
@@ -11,6 +12,7 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 	const [quotesData, setQuotesData] = useState<any>({}); // Loading state
 	const [quotesShowNum, setQuotesShowNum] = useState<number>(shortListCount); // Loading state
 	const [quotesExpend, setQuotesExpend] = useState<boolean>(false); // Loading state
+	const [viewMode, setViewMode] = useState<string>("details");
 
 	if ( !className ) className = '';
 
@@ -77,6 +79,8 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 		<div className={"text-black p-2 border-0 border-gray-800 shadow-md bg-orange-100 rounded-lg " + className }>
 			<div className="flex w-full">
 				<div className="text-sm font-semibold text-gray-800">{ stockItem.symbol + ', ' + stockItem.longname }</div>
+				{viewMode === "details" && <div><button className="ml-2 text-xs font-semibold text-gray-800 bg-red-400 px-1 rounded-sm" onClick={() => setViewMode("chart")}>Show Chart</button></div>}
+				{viewMode === "chart" &&<div><button className="ml-2 text-xs font-semibold text-gray-800 bg-red-400 px-1 rounded-sm"  onClick={() => setViewMode("details")}>Show Details</button></div>}
 				<div className="ml-2 text-xs font-semibold text-gray-800 bg-red-400 px-1 rounded-sm cursor-pointer" title="Remove" onClick={()=>onRemoveClick(stockItem)}>x</div>
 			</div>
 			{ ( loading ) ?
@@ -84,14 +88,18 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 					<SpinningIcon className="text-blue-400" />
 				</div>
 				:
-				<div>
-					{ quotesData?.quotes && 
-						<div>
-							{ quotesData.quotes.map( ( item: any, i: number ) => i <= quotesShowNum && <div key={i} className="text-xs">{ JSON.stringify(item) }</div> ) } 
-							{ quotesData.quotes.length > quotesShowNum && <div className="text-sm italic text-gray-400 cursor-pointer hover:text-blue-600" onClick={onExpendClick}>{ '...more prices, total: ' + quotesData.quotes.length }</div> }
-						</div>
-					}
-				</div>
+				<>
+					{viewMode === "details" && <div>
+						{ quotesData?.quotes && 
+							<div>
+								{ quotesData.quotes.map( ( item: any, i: number ) => i <= quotesShowNum && <div key={i} className="text-xs">{ JSON.stringify(item) }</div> ) } 
+								{ quotesData.quotes.length > quotesShowNum && <div className="text-sm italic text-gray-400 cursor-pointer hover:text-blue-600" onClick={onExpendClick}>{ '...more prices, total: ' + quotesData.quotes.length }</div> }
+							</div>
+						}
+					</div>}
+
+					{viewMode === "chart" && <StockChart data={quotesData.quotes} />}
+				</>
 			}
 		</div>
 	);
