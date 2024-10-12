@@ -3,6 +3,7 @@ import SpinningIcon from "../common/SpinningIcon";
 import * as Utils from "@/app/util/utils";
 import StockChart from "./stockChart";
 import StockSummary from "./stockSummary";
+import StockSimpleChart from "./stockSimpleChart";
 
 export default function StockQuotes({ stockItem, quoteDays, className, onRemoveClick }: { stockItem: any, quoteDays: number, className?:string , onRemoveClick: (stockItem: any) => void }) {
 
@@ -95,7 +96,12 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 				:
 				<>
 					{viewMode === "details" && <StockSummary quotesData={quotesData} /> }
-					{viewMode === "chart" && <StockChart data={quotesData.quotes} />}
+					{viewMode === "chart" && <>
+						 <StockChart data={quotesData.quotes} />
+
+						 <h2 className="text-xl">Below is simple chart</h2>
+						 <StockSimpleChart data={quotesData.quotes} />
+					</>}
 				</>
 			}
 		</div>
