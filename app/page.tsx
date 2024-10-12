@@ -7,7 +7,7 @@ import { ContextWrapperQuoteDays } from "./context/ContextQuoteDays";
 
 export default function Home() {
 
-  if ( !window.GLOBAL_OBJ ) window.GLOBAL_OBJ = {};
+  // if ( !window.GLOBAL_OBJ ) window.GLOBAL_OBJ = {};
 
   return (
     <div className="flex h-screen flex-col">

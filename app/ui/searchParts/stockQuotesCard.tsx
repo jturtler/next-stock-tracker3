@@ -36,12 +36,35 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 				if (responseJson) 
 				{
 					setQuotesData( responseJson );
-					const value = eval( 'responseJson?.quotes?.length' ); // Now that this works
+
+					try
+					{
+						// if ( !window.GLOBAL_OBJ.dataEval ) eval( window.GLOBAL_OBJ.dataEval );
+
+						// But with the new data created?  How do we decide to render?
+
+						// Maybe 'NewData': [] <-- If exists/populated, we take the data source from it?
+
+						// 'Views':
+						//		- 'Chart' <-- Optional highlight with color <-- eval override (example shown on eval)
+						//		- 'Summary' <-- Optional data listing <-- highlight with color? <-- eval override
+
+					}
+					catch( err )
+					{
+						console.log( 'ERROR during dataEval run, ' + err );
+					}
+
+					// const value = eval( 'responseJson?.quotes?.length' ); // Now that this works
 					// We can use the expression..  
 					// Is there any way to declare a global variable?  'INFO'?  'GLOBAL'?
-					console.log( 'eval value: ' + value );
+					// console.log( 'eval value: ' + value );
 					//if ( !window.GLOBAL_OBJ ) window.GLOBAL_OBJ = {};
 
+
+
+
+					/*
 					if ( !window.GLOBAL_OBJ.count ) {
 						window.GLOBAL_OBJ.count = 0;
 						window.GLOBAL_OBJ.items = [];
@@ -49,7 +72,7 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 
 					window.GLOBAL_OBJ.count++;
 					window.GLOBAL_OBJ.items.push( responseJson );
-				
+					*/
 				}
 			})
 			.catch((error) => {
