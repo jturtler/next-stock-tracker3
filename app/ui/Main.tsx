@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import SearchStock from "./searchParts/searchStock";
-import StockQuotesCard from "./searchParts/stockQuotesCard";
+import SearchStock from "./stockSearches/searchStock";
+import StockQuotesCard from "./stockRenders/stockQuotesCard";
 import { useContextQuoteDays } from "../context/ContextQuoteDays";
 import { Button } from "./common/Button";
 

@@ -142,12 +142,12 @@ export default function StockChart({ data }: { data: any }) {
 
 
 	return (
-		<div className="pt-7">
-			<ResponsiveContainer width="100%" height={360}>
+		<div className="pt-3">
+			<ResponsiveContainer width="100%" height={150}>
 				<ComposedChart
-					height={400}
+					height={150}
 					data={chartData}
-					margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+					margin={{ top: 1, right: 1, left: 1, bottom: 1 }}
 				>
 					<CartesianGrid strokeDasharray="3 3" />
 
@@ -169,7 +169,7 @@ export default function StockChart({ data }: { data: any }) {
 						domain={[yTicks[0], yTicks[yTicks.length - 1]]}  // Customize the vertical axis range
 						tickCount={yTicks.length - 1}       // Set the number of ticks
 						ticks={yTicks}
-						tick={{ fontSize: 11 }}
+						tick={{ fontSize: 10 }}
 						axisLine={false}  // Optionally hide the Y-axis line
 						tickLine={false}  // Optionally hide the tick lines
 						tickFormatter={formatYPriceAxis}
@@ -177,7 +177,7 @@ export default function StockChart({ data }: { data: any }) {
 					<YAxis
 						yAxisId="yVolume"
 						orientation="left"
-						tick={{ fontSize: 11 }}
+						tick={{ fontSize: 10 }}
 						tickFormatter={formatYVolumeAxis}
 					/>
 
@@ -187,9 +187,6 @@ export default function StockChart({ data }: { data: any }) {
 					<Area yAxisId="yPrice" type="monotone" dataKey="close" strokeWidth={1} activeDot={{ r: 8 }} dot={false} fill="url(#colorUv)" />
 				</ComposedChart>
 			</ResponsiveContainer>
-
-			<hr className="text-black border mb-3" />
-
 		</div>
 	);
 };
