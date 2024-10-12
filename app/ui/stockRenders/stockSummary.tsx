@@ -54,7 +54,7 @@ export default function StockSummary({ quotesData }: { quotesData: any }) {
 				<div>
 					<div className="text-xs flex flex-col gap-1">
 						<div className="bg-gray-200 rounded-sm p-1 w-fit">Low: {summaryData.low?.toFixed(1)}, High: {summaryData.high?.toFixed(1)}</div>
-						<div className="bg-violet-200 rounded-sm p-1 w-fit">Volume High: {summaryData.volume.toLocaleString()}</div>
+						<div className="bg-violet-200 rounded-sm p-1 w-fit">Volume High: {summaryData.volume?.toLocaleString()}</div>
 					</div>
 					<div className='pt-2'>
 						{ quotesData.quotes.map( ( item: any, i: number ) => i <= quotesShowNum && <StockQuoteLine key={i} quoteData={item}></StockQuoteLine> ) } 
