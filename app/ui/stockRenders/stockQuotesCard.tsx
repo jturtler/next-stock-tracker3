@@ -2,16 +2,12 @@ import { useEffect, useState } from "react";
 import SpinningIcon from "../common/SpinningIcon";
 import * as Utils from "@/app/util/utils";
 import StockChart from "./stockChart";
-
-const shortListCount: number = 4;
-const longListCount: number = 13;
+import StockSummary from "./stockSummary";
 
 export default function StockQuotes({ stockItem, quoteDays, className, onRemoveClick }: { stockItem: any, quoteDays: number, className?:string , onRemoveClick: (stockItem: any) => void }) {
 
 	const [loading, setLoading] = useState<boolean>(true); // Loading state
 	const [quotesData, setQuotesData] = useState<any>({}); // Loading state
-	const [quotesShowNum, setQuotesShowNum] = useState<number>(shortListCount); // Loading state
-	const [quotesExpend, setQuotesExpend] = useState<boolean>(false); // Loading state
 	const [viewMode, setViewMode] = useState<string>("details");
 
 	if ( !className ) className = '';
@@ -84,20 +80,6 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 	}, [stockItem, quoteDays]); // Only if 'symbol' is not same as previous one, run 'useEffect'
 
 
-	const onExpendClick = () => {
-		if ( quotesExpend )
-		{
-			// Make this a single object state?
-			setQuotesShowNum( shortListCount );
-			setQuotesExpend( false );
-		}
-		else
-		{
-			setQuotesShowNum( longListCount );
-			setQuotesExpend( true );
-		}
-	}
-
 	return (
 		<div className={"text-black p-2 border-0 border-gray-800 shadow-md bg-orange-100 rounded-lg " + className }>
 			<div className="flex w-full">
@@ -112,15 +94,7 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 				</div>
 				:
 				<>
-					{viewMode === "details" && <div>
-						{ quotesData?.quotes && 
-							<div>
-								{ quotesData.quotes.map( ( item: any, i: number ) => i <= quotesShowNum && <div key={i} className="text-xs">{ JSON.stringify(item) }</div> ) } 
-								{ quotesData.quotes.length > quotesShowNum && <div className="text-sm italic text-gray-400 cursor-pointer hover:text-blue-600" onClick={onExpendClick}>{ '...more prices, total: ' + quotesData.quotes.length }</div> }
-							</div>
-						}
-					</div>}
-
+					{viewMode === "details" && <StockSummary quotesData={quotesData} /> }
 					{viewMode === "chart" && <StockChart data={quotesData.quotes} />}
 				</>
 			}

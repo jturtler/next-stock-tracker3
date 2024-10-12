@@ -27,7 +27,7 @@ export default function Header() {
 			 </div>
 		  </div>
   
-		  <div className="ml-3 flex-1 flex justify-end"><div className="mr-3 cursor-pointer" onClick={changeSettingNavDisplay}>NAV</div></div>
+		  <div className="ml-3 flex-1 flex justify-end"><div className="mr-3 cursor-pointer hover:bg-blue-500 p-1 text-sm" onClick={changeSettingNavDisplay}>NAV</div></div>
 		</div>
 		{ ( settingNavDisplay === 'show') && 
 		<div className="w-full bg-black text-gray-400 text-xs p-1 flex"> 
