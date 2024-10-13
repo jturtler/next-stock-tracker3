@@ -28,7 +28,7 @@ export default function StockSearchResultList({data, itemOnClick, handleReorderD
 
     return (
         <DndProvider backend={HTML5Backend}>
-			 <div className="flex flex-wrap mx-4">
+			 <div className="flex flex-wrap mx-4 space-x-2">
 				{list.map((item: any, index: number) => (
                     // <Button key={index} className={"bg-blue-900 " + getCssFlash(index)} onClick={() => itemOnClick(item, index)}>{item.symbol}</Button>
                     <StockSearchResultItem key={index} stockData={item} index={index} moveStock={moveStock} itemClick={(item) => itemOnClick(item, index)} />

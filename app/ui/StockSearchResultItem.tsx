@@ -59,11 +59,14 @@ const StockSearchResultItem = forwardRef<HTMLDivElement, DraggableStockItemProps
         return (
 			<div
                 ref={dragRef}
-                className={` m-1
-					${isDragging ? 'dragging' : 'bg-snow-white'}`}
-					onClick={itemClick}
+				className={`hover:bg-orange-400 transition cursor-move px-2 rounded h-full ${isDragging ? 'bg-orange-400' : 'bg-blue-500'}`} // Change color when dragging
+				onMouseDown={(e) => {
+					e.stopPropagation();
+					setIsDragging(true);
+				}}
+				onClick={itemClick}
             >
-			<Button key={index} className={"bg-blue-900 " + getCssFlash(index)} >{stockData.symbol}</Button>
+				<button key={index} className={`${getCssFlash(index)} ${isDragging ? '' : ''}`} >{stockData.symbol}</button>
 			</div>
         );
     }
