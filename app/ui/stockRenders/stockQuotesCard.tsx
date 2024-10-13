@@ -96,12 +96,7 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 				:
 				<>
 					{viewMode === "details" && <StockSummary quotesData={quotesData} /> }
-					{viewMode === "chart" && <>
-						 <StockChart data={quotesData.quotes} />
-
-						 <h2 className="text-xl">Below is simple chart</h2>
-						 <StockSimpleChart data={quotesData.quotes} />
-					</>}
+					{viewMode === "chart" && <StockSimpleChart data={quotesData.quotes} /> }
 				</>
 			}
 		</div>
