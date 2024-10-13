@@ -85,8 +85,8 @@ export default function StockQuotes({ stockItem, quoteDays, className, onRemoveC
 		<div className={"text-black p-2 border-0 border-gray-800 shadow-md bg-orange-100 rounded-lg " + className }>
 			<div className="flex w-full">
 				<div className="text-sm font-semibold text-gray-800">{ stockItem.symbol + ', ' + stockItem.longname }</div>
-				{viewMode === "details" && <div><button className="ml-2 text-xs font-semibold text-gray-800 bg-red-400 px-1 rounded-sm" onClick={() => setViewMode("chart")}>Show Chart</button></div>}
-				{viewMode === "chart" &&<div><button className="ml-2 text-xs font-semibold text-gray-800 bg-red-400 px-1 rounded-sm"  onClick={() => setViewMode("details")}>Show Details</button></div>}
+				{viewMode === "details" && <div><button className="ml-2 text-xs font-semibold text-gray-800 bg-blue-400 px-1 rounded-sm cursor-pointer" onClick={() => setViewMode("chart")}>Show Chart</button></div>}
+				{viewMode === "chart" &&<div><button className="ml-2 text-xs font-semibold text-gray-800 bg-blue-400 px-1 rounded-sm cursor-pointer"  onClick={() => setViewMode("details")}>Show Details</button></div>}
 				<div className="ml-2 text-xs font-semibold text-gray-800 bg-red-400 px-1 rounded-sm cursor-pointer" title="Remove" onClick={()=>onRemoveClick(stockItem)}>x</div>
 			</div>
 			{ ( loading ) ?
