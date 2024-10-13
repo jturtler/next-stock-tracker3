@@ -3,6 +3,7 @@ import SearchStock from "./stockSearches/searchStock";
 import StockQuotesCard from "./stockRenders/stockQuotesCard";
 import { useContextQuoteDays } from "../context/ContextQuoteDays";
 import { Button } from "./common/Button";
+import StockSearchResultList from "./StockSearchResultList";
 
 export default function Main () {
 
@@ -24,6 +25,10 @@ export default function Main () {
 		setTimeout(() => { setFlashId(-1); }, 500);
 	};
 
+	const handleReorderData = (newList: any) => {
+		setStockList(newList);
+	}
+
 	const onRemoveClicked = ( stockItem: any ) => setStockList( [ ...stockList.filter(item => item !== stockItem) ] );
 	const getCssFlash = ( i: number ): string => ( i === flashId ) ? 'flash': '';
 
@@ -34,10 +39,7 @@ export default function Main () {
 			{ stockItem && <div className="mt-2">
 
 				<div className="mt-2 flex gap-1">
-						{ stockList.map( (stockItem, i ) => 
-							<Button key={i} className={"bg-blue-900 " + getCssFlash(i)} onClick={() => stockBtnClick(stockItem, i)}>{stockItem.symbol}</Button>
-							)
-						}
+						<StockSearchResultList data={stockList} itemOnClick={(stockItem, index) => stockBtnClick(stockItem, index) } handleReorderData={(newList) => handleReorderData(newList)} />
 					</div>
 
 					<div className="mt-2 flex flex-col gap-2">
