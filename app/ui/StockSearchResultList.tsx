@@ -2,10 +2,12 @@
 
 
 import { useEffect, useState } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend"
-import { Button } from "./common/Button";
 import StockSearchResultItem from "./StockSearchResultItem";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
+import { isMobile } from 'react-device-detect';
+
 
 export default function StockSearchResultList({data, itemOnClick, handleReorderData}: {data: any, itemOnClick: (itemData: any, no: number) => void, handleReorderData: (list: any) => void}) {
 	
@@ -27,7 +29,7 @@ export default function StockSearchResultList({data, itemOnClick, handleReorderD
 
 
     return (
-        <DndProvider backend={HTML5Backend}>
+        <DndProvider  backend={isMobile ? TouchBackend : HTML5Backend}>
 			 <div className="flex flex-wrap mx-4 space-x-2">
 				{list.map((item: any, index: number) => (
                     // <Button key={index} className={"bg-blue-900 " + getCssFlash(index)} onClick={() => itemOnClick(item, index)}>{item.symbol}</Button>

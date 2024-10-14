@@ -1,10 +1,6 @@
-'use client';
-
 import { useEffect, useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { forwardRef } from "react";
-import { RxDragHandleDots2 } from "react-icons/rx";
-import { Button } from "./common/Button";
 
 interface DraggableStockItemProps {
     stockData: any;
@@ -18,16 +14,11 @@ const StockSearchResultItem = forwardRef<HTMLDivElement, DraggableStockItemProps
         const dragRef = useRef<HTMLDivElement>(null);
         const [isDragging, setIsDragging] = useState(false); // State to track dragging
 
-		const [ flashId, setFlashId ] = useState< number >(-1);
-
         const [, drag] = useDrag({
             type: 'STOCK',
             item: { index },
             end: (item, monitor) => {
                 setIsDragging(false); // Reset dragging state when drag ends
-                if (monitor.didDrop()) {
-                    // Optionally handle if dropped on a valid drop target
-                }
             },
             collect: (monitor) => ({
                 isDragging: monitor.isDragging(), // Collect the dragging state
@@ -52,22 +43,18 @@ const StockSearchResultItem = forwardRef<HTMLDivElement, DraggableStockItemProps
             }
         }, [drag, drop]);
 
-     
-		const getCssFlash = ( i: number ): string => ( i === flashId ) ? 'flash': '';
-
-        // w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4
         return (
-			<div
+            <div
                 ref={dragRef}
-				className={`hover:bg-orange-400 transition cursor-move px-2 rounded h-full ${isDragging ? 'bg-orange-400' : 'bg-blue-500'}`} // Change color when dragging
-				onMouseDown={(e) => {
-					e.stopPropagation();
-					setIsDragging(true);
-				}}
-				onClick={itemClick}
+                className={`hover:bg-orange-400 transition cursor-move px-2 rounded h-full ${isDragging ? 'bg-orange-400' : 'bg-blue-500'}`} // Change color when dragging
+                onMouseDown={(e) => {
+                    e.stopPropagation();
+                    setIsDragging(true);
+                }}
+                onClick={itemClick}
             >
-				<button key={index} className={`${getCssFlash(index)} ${isDragging ? '' : ''}`} >{stockData.symbol}</button>
-			</div>
+                <button>{stockData.symbol}</button>
+            </div>
         );
     }
 );
