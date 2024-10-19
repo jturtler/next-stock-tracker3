@@ -13,8 +13,6 @@ export default function Main () {
 	const { quoteDays } = useContextQuoteDays();
 
 	const onStockItemSelect = ( item: any ) => {  
-		console.log( 'stock item selected in Main ');
-		console.log( item );
 		setStockItem( item );  setStockList( [ ...stockList, item ] );  
 	};
 	
