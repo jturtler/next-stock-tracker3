@@ -3,7 +3,7 @@ import SearchStock from "./stockSearches/searchStock";
 import StockQuotesCard from "./stockRenders/stockQuotesCard";
 import { useContextQuoteDays } from "../context/ContextQuoteDays";
 import { Button } from "./common/Button";
-import StockSearchResultList from "./StockSearchResultList";
+import StockSearchResultList from "./stockSearches/StockSearchResultList";
 
 export default function Main () {
 

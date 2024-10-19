@@ -46,7 +46,7 @@ const StockSearchResultItem = forwardRef<HTMLDivElement, DraggableStockItemProps
         return (
             <div
                 ref={dragRef}
-                className={`hover:bg-orange-400 transition cursor-move px-2 rounded h-full ${isDragging ? 'bg-orange-400' : 'bg-blue-500'}`} // Change color when dragging
+                className={`hover:bg-orange-300 transition cursor-move px-2 text-sm text-white rounded h-full ${isDragging ? 'bg-orange-300' : 'bg-blue-300'}`} // Change color when dragging
                 onMouseDown={(e) => {
                     e.stopPropagation();
                     setIsDragging(true);

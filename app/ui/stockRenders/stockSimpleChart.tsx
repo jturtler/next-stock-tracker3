@@ -9,8 +9,19 @@ export default function StockSimpleChart({ data }: { data: any }) {
 
 	useEffect(() => { 
 		const closeValArr = data.map( ( item: any ) => item.close );
-		setMaxPrice(Math.max.apply(Math, closeValArr ));
-		setMinPrice(Math.min.apply(Math, closeValArr ));
+
+		let minVal:number = 0; //Math.min.apply(Math, closeValArr );
+		let maxVal:number = 0; // Math.max.apply(Math, closeValArr );
+		
+		closeValArr.forEach( ( val: number ) => {
+			if ( val ) {
+				if ( !minVal || minVal > val ) minVal = val;
+				if ( !maxVal || maxVal < val ) maxVal = val;
+			}
+		});
+
+		setMaxPrice( maxVal );
+		setMinPrice( minVal );
 	}, [data]);
 
 	if (data === null ) return ( <div>Loading ...</div> );
@@ -40,7 +51,7 @@ export default function StockSimpleChart({ data }: { data: any }) {
 
 					<YAxis
 						yAxisId="yPrice"
-						orientation="right"
+						orientation="left"
 						domain={[minPrice, maxPrice]}  // Customize the vertical axis range
 						// tickCount={yTicks.length - 1}       // Set the number of ticks
 						// ticks={yTicks}
@@ -51,7 +62,7 @@ export default function StockSimpleChart({ data }: { data: any }) {
 					/>
 					<YAxis
 						yAxisId="yVolume"
-						orientation="left"
+						orientation="right"
 						tick={{ fontSize: 10 }}
 						// tickFormatter={formatYVolumeAxis}
 					/>
