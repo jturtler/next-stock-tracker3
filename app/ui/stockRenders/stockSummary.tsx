@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import StockQuoteLine from './stockQuoteLine';
+import { useContextMainModal } from '@/app/context/ContextMainModal';
 
 const shortListCount: number = 2;
 const longListCount: number = 5;
@@ -9,6 +10,7 @@ export default function StockSummary({ quotesData }: { quotesData: any }) {
 	const [quotesShowNum, setQuotesShowNum] = useState<number>(shortListCount);
 	const [quotesExpend, setQuotesExpend] = useState<boolean>(false);
 	const [summaryData, setSummaryData] = useState<any>({});
+	const { mainModal, setMainModal } = useContextMainModal();	
 
 	const compareNSet = ( sumData: any, item: any, propName: string, compareStr?: string ) => {
 		if ( !compareStr ) compareStr = 'compHigh';
@@ -33,19 +35,9 @@ export default function StockSummary({ quotesData }: { quotesData: any }) {
     }, [quotesData]);
 
 	 
-	const onExpendClick = () => {
-		if ( quotesExpend )
-		{
-			// Make this a single object state?
-			setQuotesShowNum( shortListCount );
-			setQuotesExpend( false );
-		}
-		else
-		{
-			setQuotesShowNum( longListCount );
-			setQuotesExpend( true );
-		}
-	}
+	const onExpendClick = ( quotes: any[] ) => {
+		setMainModal( { show: true, data: { dataList: quotes }} );
+	};
 
 
 	return (
@@ -58,7 +50,7 @@ export default function StockSummary({ quotesData }: { quotesData: any }) {
 					</div>
 					<div className='pt-2'>
 						{ quotesData.quotes.map( ( item: any, i: number ) => i <= quotesShowNum && <StockQuoteLine key={i} quoteData={item}></StockQuoteLine> ) } 
-						{ quotesData.quotes.length > quotesShowNum && <div className="text-sm italic text-gray-400 cursor-pointer hover:text-blue-600" onClick={onExpendClick}>{ '...more prices, total: ' + quotesData.quotes.length }</div> }
+						{ quotesData.quotes.length > quotesShowNum && <div className="text-sm italic text-gray-400 cursor-pointer hover:text-blue-600" onClick={() => onExpendClick(quotesData.quotes)}>{ '...more prices, total: ' + quotesData.quotes.length }</div> }
 					</div>
 				</div>
 			}		
